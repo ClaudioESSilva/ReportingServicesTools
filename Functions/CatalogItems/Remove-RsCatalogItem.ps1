@@ -66,7 +66,7 @@ process
         {
             Write-Verbose "Deleting catalog item $Path..."
             $Proxy.DeleteItem($Path)
-            Write-Information "Catalog item deleted successfully!"
+            Write-Verbose "Catalog item deleted successfully!"
         }
         catch
         {

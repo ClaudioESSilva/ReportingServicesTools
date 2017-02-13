@@ -160,7 +160,7 @@ function Write-RsCatalogItem
                 $Proxy.CreateCatalogItem($itemType, $itemName, $Destination, $OverWrite, $bytes, $null, [ref]$warnings) | Out-Null
             }
 
-            Write-Information "$EntirePath was uploaded to $Destination successfully!"
+            Write-Verbose "$EntirePath was uploaded to $Destination successfully!"
         }
     }
 }

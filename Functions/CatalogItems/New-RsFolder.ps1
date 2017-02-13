@@ -70,7 +70,7 @@ function New-RsFolder
     {
         Write-Verbose "Creating folder $($FolderName)..."
         $Proxy.CreateFolder($FolderName, $Path, $null) | Out-Null
-        Write-Information "Folder $($FolderName) created successfully!"
+        Write-Verbose "Folder $($FolderName) created successfully!"
     }
     catch
     {

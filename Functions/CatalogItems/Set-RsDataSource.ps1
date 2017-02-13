@@ -111,7 +111,7 @@ function Set-RsDataSource
     {
         Write-Verbose "Updating data source..."
         $Proxy.SetDataSourceContents($DataSourcePath, $DataSourceDefinition)
-        Write-Information "Data source updated successfully!"
+        Write-Verbose "Data source updated successfully!"
     }
     catch
     {

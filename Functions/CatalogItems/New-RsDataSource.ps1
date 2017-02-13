@@ -213,7 +213,7 @@ function New-RsDataSource
     {
         Write-Verbose "Creating data source..."
         $Proxy.CreateDataSource($Name, $Destination, $Overwrite, $datasource, $null)
-        Write-Information "Data source created successfully!"
+        Write-Verbose "Data source created successfully!"
     }
     catch
     {

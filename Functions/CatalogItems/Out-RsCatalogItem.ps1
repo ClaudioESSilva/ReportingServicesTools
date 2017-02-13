@@ -122,5 +122,5 @@ function Out-RsCatalogItem
         [System.IO.File]::WriteAllBytes("$DestinationFullPath\$fileName", $bytes)
     }
 
-    Write-Information "$Path was downloaded to $DestinationFullPath\$fileName successfully!"
+    Write-Verbose "$Path was downloaded to $DestinationFullPath\$fileName successfully!"
 }

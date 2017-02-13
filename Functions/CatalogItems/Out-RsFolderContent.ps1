@@ -89,7 +89,7 @@ function Out-RsFolderContent
             $newFolder = $Destination + $relativePath
             Write-Verbose "Creating folder $newFolder"
             mkdir $newFolder -Force | Out-Null
-            Write-Information "Folder: $newFolder was created successfully."
+            Write-Verbose "Folder: $newFolder was created successfully."
         }
         
         if ($item.TypeName -eq "Resource" -or 

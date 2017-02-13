@@ -66,7 +66,7 @@ function Get-RsDataSource
     {
         Write-Verbose "Retrieving data source contents..."
         $Proxy.GetDataSourceContents($DataSourcePath)
-        Write-Information "Data source retrieved successfully!"
+        Write-Verbose "Data source retrieved successfully!"
     }
     catch
     {
