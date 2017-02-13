@@ -13,8 +13,8 @@ function New-RsWebServiceProxy
     .PARAMETER ReportServerUri
         Specify the Report Server URL to your SQL Server Reporting Services Instance.
 
-	.PARAMETER Credentials
-		Specify the credentials to use when connecting to your SQL Server Reporting Services Instance.
+    .PARAMETER Credentials
+        Specify the credentials to use when connecting to your SQL Server Reporting Services Instance.
 
     .EXAMPLE 
         New-RsWebServiceProxy 

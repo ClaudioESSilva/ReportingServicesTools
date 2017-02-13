@@ -35,7 +35,7 @@ function Set-RsDataSource
         Set-RsDataSource -ReportServerUri 'http://remote-machine:8080/reportserver_sql16' -DataSourcePath '/path/to/my/datasource' -DataSourceDefinition $dataSourceDefinition 
         Description
         -----------
-        This command will establish a connection to the Report Server located at http://remote-machine:8080/reportserver_sql16 using current user's credentials and update the details of data source found at '/path/to/my/datasource'.		
+        This command will establish a connection to the Report Server located at http://remote-machine:8080/reportserver_sql16 using current user's credentials and update the details of data source found at '/path/to/my/datasource'.
     #>
 
     [cmdletbinding()]

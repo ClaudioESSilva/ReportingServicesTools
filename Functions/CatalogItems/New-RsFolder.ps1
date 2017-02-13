@@ -32,10 +32,10 @@ function New-RsFolder
         This command will establish a connection to the Report Server located at http://localhost/reportserver using current user's credentials and create a new folder 'My new folder' at the root of the SSRS instance.
 
     .EXAMPLE 
-        New-RsFolder -ReportServerUri 'http://remoteServer/reportserver' -Path '/existingfolder' -FolderName 'My new sub-folder'	
+        New-RsFolder -ReportServerUri 'http://remoteServer/reportserver' -Path '/existingfolder' -FolderName 'My new sub-folder'
         Description
         -----------
-        This command will establish a connection to the Report Server located at http://remoteServer/reportserver using current user's credentials and create a new folder 'My new sub-folder' at the folder existingfolder in the root.	
+        This command will establish a connection to the Report Server located at http://remoteServer/reportserver using current user's credentials and create a new folder 'My new sub-folder' at the folder existingfolder in the root.
 
     #>
 

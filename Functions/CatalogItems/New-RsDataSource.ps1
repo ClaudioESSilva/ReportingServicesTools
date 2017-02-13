@@ -126,7 +126,7 @@ function New-RsDataSource
         [string]
         $CredentialRetrieval,
 
-		[System.Management.Automation.PSCredential]
+        [System.Management.Automation.PSCredential]
         $DatasourceCredentials,
 
         [string]
