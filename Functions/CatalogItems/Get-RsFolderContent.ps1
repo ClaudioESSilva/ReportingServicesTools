@@ -21,19 +21,35 @@ function Get-RsFolderContent
         Report server proxy to use. 
         Has to be provided if ReportServerUri is not provided.
 
-    .PARAMETER Path
-        Path to folder.
+    .PARAMETER RsFolder
+        Path to folder on SSRS instance.
 
     .PARAMETER Recurse
         Recursively list subfolders with content.
 
-
     .EXAMPLE
-        Get-RsFolderContent -ReportServerUri 'http://localhost/reportserver_sql2012' -Path /
+        Get-RsFolderContent -ReportServerUri http://localhost/reportserver_sql2012 -RsFolder /
        
         Description
         -----------
-        List all items under the root folder
+        List all items directly under the root of the named SSRS instance.
+
+    .EXAMPLE
+        Get-RsFolderContent -ReportServerUri http://localhost/ReportServer -RsFolder / -Recurse
+       
+        Description
+        -----------
+        Lists all items directly under the root of the SSRS instance and recursively under all sub-folders.
+
+    .EXAMPLE
+        Get-RsFolderContent -ReportServerUri http://localhost/ReportServer -RsFolder '/SQL Server Performance Dashboard' | 
+        WHERE Name -Like Wait* | 
+        Out-RsCatalogItem -ReportServerUri http://localhost/ReportServer -Destination c:\SQLReports
+   
+        Description
+        -----------
+        Downloads all catalog items from folder '/SQL Server Performance Dashboard' with a name that starts with 'Wait' to folder 'C:\SQLReports'. 
+
     #>
     
     [cmdletbinding()]
@@ -46,9 +62,10 @@ function Get-RsFolderContent
         
         $Proxy,
         
+        [Alias('Path')]
         [Parameter(Mandatory=$True,ValueFromPipeline = $true,ValueFromPipelinebyPropertyname = $true)]
         [string]
-        $Path,
+        $RsFolder,
         
         [switch]
         $Recurse
@@ -61,7 +78,7 @@ process
             $Proxy = New-RSWebServiceProxy -ReportServerUri $ReportServerUri -Credentials $ReportServerCredentials
         }
 
-        $Proxy.ListChildren($Path, $Recurse)
+        $Proxy.ListChildren($RsFolder, $Recurse)
     }
 }
 New-Alias -Name "Get-RsCatalogItems" -Value Get-RsFolderContent -Scope Global
