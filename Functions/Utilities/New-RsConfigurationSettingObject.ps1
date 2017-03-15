@@ -52,5 +52,7 @@ function New-RsConfigurationSettingObject
     )
 
     $namespace = "root\Microsoft\SqlServer\ReportServer\RS_$SqlServerInstance\v$SqlServerVersion\Admin"
-    return Get-WmiObject -namespace $namespace -class MSReportServer_ConfigurationSetting -ErrorAction Stop
+    $wmiObjects = Get-WmiObject -namespace $namespace -class MSReportServer_ConfigurationSetting -ErrorAction Stop
+
+    return $wmiObjects | Where-Object { $_.InstanceName -eq $SqlServerInstance }
 }
