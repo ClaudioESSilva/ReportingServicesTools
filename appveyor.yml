@@ -21,10 +21,11 @@ before_test:
 - ps: |
     $ErrorActionPreference = 'Stop';
     [Environment]::SetEnvironmentVariable("SqlSaPwd", "i<3ReportingServices", "User")
+    Write-Host "Sql SA Password is set to $($env:SqlSaPwd)"
     $url = "$($env:downloadUrl)/SQLServer2016-x64-ENU.exe"
     $urlBox = "$($env:downloadUrl)/SQLServer2016-x64-ENU.box"
     #arguments sqlserver needs for the installation 
-    $silentArgs = "/IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCENAME=MSSQLSERVER /UPDATEENABLED=FALSE /FEATURES=SQLEngine,RS /RSINSTALLMODE=DefaultNativeMode /SQLSYSADMINACCOUNTS=`"BUILTIN\Administrators`" /SECURITYMODE=SQL /SAPWD=$($env:SqlSaPwd)"
+    $silentArgs = "/IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCENAME=MSSQLSERVER /UPDATEENABLED=FALSE /FEATURES=SQLEngine,RS /RSINSTALLMODE=DefaultNativeMode /SQLSYSADMINACCOUNTS=`"BUILTIN\Administrators`" /SECURITYMODE=SQL /SAPWD=`"i<3ReportingServices`""
     $tempDir = Join-Path (Get-Item $env:TEMP).FullName "sql2016Eval"
     if ((Test-Path $tempDir) -eq $false) { New-Item -ItemType Directory -Path $tempDir}
     $fileFullPath = "$tempDir\SQLServer.exe"
