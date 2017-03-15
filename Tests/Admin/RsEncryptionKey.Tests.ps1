@@ -12,7 +12,7 @@ Describe "RsEncryptionKey" {
         Backup-RsEncryptionKey -Password $keyPassword -KeyPath $keyPath -Verbose
         Restore-RsEncryptionKey -Password $keyPassword -KeyPath $keyPath -Verbose
 
-        It "Should complete successfully" {
+        It "Should allow access of encrypted content post restore" {
             $dataSource = Get-RsDataSource -DataSourcePath "/$name"
             $dataSource.Extension | Should be $extension
             $dataSource.ConnectString | Should be $connectionString

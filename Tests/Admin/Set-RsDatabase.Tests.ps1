@@ -14,7 +14,10 @@ function Get-CredentialType() {
 }
 
 function Get-SaCredentials() {
-    $password = ConvertTo-SecureString -AsPlainText -Force 'i<3ReportingServices'
+    if (-not $env:SqlSaPwd) {
+        throw 'Environment variable SqlSaPwd is not defined!'
+    }
+    $password = ConvertTo-SecureString -AsPlainText -Force $env:SqlSaPwd
     return New-Object System.Management.Automation.PSCredential('sa', $password)
 }
 
@@ -25,7 +28,7 @@ Describe "Set-RsDatabase" {
         $credentialType = 'ServiceAccount'
         Set-RsDatabase -DatabaseServerName $databaseServerName -DatabaseName $databaseName -DatabaseCredentialType $credentialType -Verbose
         
-        It "Should complete successfully" {
+        It "Should update database and credentials" {
             Get-DatabaseName | Should be $databaseName
             Get-CredentialType | Should be $credentialType
         }
@@ -38,7 +41,7 @@ Describe "Set-RsDatabase" {
         $credential = Get-SaCredentials
         Set-RsDatabase -DatabaseServerName $databaseServerName -DatabaseName $databaseName -DatabaseCredentialType $credentialType -DatabaseCredential $credential -Verbose
         
-        It "Should complete successfully" {
+        It "Should update database and credentials" {
             Get-DatabaseName | Should be $databaseName
             Get-CredentialType | Should be $credentialType
         }
@@ -51,7 +54,7 @@ Describe "Set-RsDatabase" {
         $credential = Get-SaCredentials
         Set-RsDatabase -DatabaseServerName $databaseServerName -DatabaseName $databaseName -DatabaseCredentialType $credentialType -DatabaseCredential $credential -IsExistingDatabase -Verbose
         
-        It "Should complete successfully" {
+        It "Should update database and credentials" {
             Get-DatabaseName | Should be $databaseName
             Get-CredentialType | Should be $credentialType
         }
@@ -63,7 +66,7 @@ Describe "Set-RsDatabase" {
         $credentialType = 'ServiceAccount'
         Set-RsDatabase -DatabaseServerName $databaseServerName -DatabaseName $databaseName -DatabaseCredentialType $credentialType -IsExistingDatabase -Verbose
         
-        It "Should complete successfully" {
+        It "Should update database and credentials" {
             Get-DatabaseName | Should be $databaseName
             Get-CredentialType | Should be $credentialType
         }

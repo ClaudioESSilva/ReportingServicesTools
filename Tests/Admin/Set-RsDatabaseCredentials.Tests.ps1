@@ -9,7 +9,10 @@ function Get-CredentialType() {
 }
 
 function Get-SaCredentials() {
-    $password = ConvertTo-SecureString -AsPlainText -Force 'i<3ReportingServices'
+    if (-not $env:SqlSaPwd) {
+        throw 'Environment variable SqlSaPwd is not defined!'
+    }
+    $password = ConvertTo-SecureString -AsPlainText -Force $env:SqlSaPwd
     return New-Object System.Management.Automation.PSCredential('sa', $password)
 }
 
@@ -19,7 +22,7 @@ Describe "Set-RsDatabaseCredentials" {
         $credential = Get-SaCredentials
         Set-RsDatabaseCredentials -DatabaseCredentialType $credentialType -DatabaseCredential $credential -Verbose
         
-        It "Should complete successfully" {
+        It "Should update credentials" {
             Get-CredentialType | Should be $credentialType
         }
     }
@@ -28,7 +31,7 @@ Describe "Set-RsDatabaseCredentials" {
         $credentialType = 'ServiceAccount'
         Set-RsDatabaseCredentials -DatabaseCredentialType $credentialType -Verbose
         
-        It "Should complete successfully" {
+        It "Should update credentials" {
             Get-CredentialType | Should be $credentialType
         }
     }
