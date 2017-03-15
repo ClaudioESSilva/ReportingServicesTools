@@ -20,7 +20,7 @@ build: false
 before_test:
 - ps: |
     $ErrorActionPreference = 'Stop';
-    [Environment]::SetEnvironmentVariable("SqlSaPwd", "i<3ReportingServices", "User")
+    [Environment]::SetEnvironmentVariable("SqlSaPwd", "i<3ReportingServices")
     Write-Host "Sql SA Password is set to $($env:SqlSaPwd)"
     $url = "$($env:downloadUrl)/SQLServer2016-x64-ENU.exe"
     $urlBox = "$($env:downloadUrl)/SQLServer2016-x64-ENU.box"

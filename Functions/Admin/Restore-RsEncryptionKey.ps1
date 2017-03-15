@@ -56,7 +56,7 @@ function Restore-RSEncryptionKey
     $rsWmiObject = New-RsConfigurationSettingObject -SqlServerInstance $SqlServerInstance -SqlServerVersion $SqlServerVersion
     $reportServerService = 'ReportServer'
 
-    if (![String]::IsNullOrEmpty($sqlServerInstance))
+    if (![String]::IsNullOrEmpty($sqlServerInstance) -and $SqlServerInstance -ne 'MSSQLSERVER')
     {
         $reportServerService = $reportServerService + '$' + $sqlServerInstance
     }
