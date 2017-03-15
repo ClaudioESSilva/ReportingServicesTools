@@ -41,6 +41,9 @@ before_test:
     $setupPath = "$extractPath\setup.exe"
     Start-Process $setupPath "$silentArgs" -Wait
     Write-Host "Installation completed" (Get-Date).DateTime
+    Get-Module
+    Import-Module SQLPS
+    Get-Module
 
 test_script:
 - ps: |
