@@ -36,6 +36,7 @@ before_test:
     $extractPath = "$tempDir\SQL2016TEMP"
     Start-Process "$fileFullPath" "/Q /x:`"$extractPath`"" -Wait
     Write-Host "Installing SQL Server..." (Get-Date).DateTime
+    Write-Host "Installation args: $silentArgs"
     $setupPath = "$extractPath\setup.exe"
     Start-Process $setupPath "$silentArgs" -Wait
     Write-Host "Installation completed" (Get-Date).DateTime
