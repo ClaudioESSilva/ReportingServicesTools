@@ -5,6 +5,8 @@ environment:
     secure: 0PgkUpRd+qAfL0WFe5pFmOE/KasEJY19wogMfkRzk1NFqFqfDGLIU+CPbd1ZoR+1  
   access_token:
     secure: kGlQZapsnS3J41iYVKMP4kqeYcSeFRPI3rXNxl5GwgkcnPiGJxQmU+HO30xaegQq
+  SqlSaPwd: i<3ReportingServices
+
 # Skip on updates to the readme.
 # We can force this by adding [skip ci] or [ci skip] anywhere in commit message
 skip_commits:
@@ -14,13 +16,14 @@ install:
 - ps: Install-PackageProvider -Name NuGet -Force
 - ps: Install-Module -Name PSScriptAnalyzer -Force
 - ps: Install-Module -Name Pester
+- cmd: net user rsuser1 %SqlSaPwd% /add
 
 build: false
 
 before_test:
 - ps: |
     $ErrorActionPreference = 'Stop';
-    [Environment]::SetEnvironmentVariable("SqlSaPwd", "i<3ReportingServices")
+    [Environment]::SetEnvironmentVariable("RsUser", "$($env:ComputerName)\rsuser1")
     $url = "$($env:downloadUrl)/SQLServer2016-x64-ENU.exe"
     $urlBox = "$($env:downloadUrl)/SQLServer2016-x64-ENU.box"
     #arguments sqlserver needs for the installation 
