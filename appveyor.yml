@@ -40,6 +40,9 @@ before_test:
     $setupPath = "$extractPath\setup.exe"
     Start-Process $setupPath "$silentArgs" -Wait
     Write-Host "Installation completed" (Get-Date).DateTime
+    Write-Host "Importing SQLPS Module..." (Get-Date).DateTime
+    Import-Module "C:\Program Files (x86)\Microsoft SQL Server\130\Tools\PowerShell\Modules\sqlps\sqlps.psd1" -Verbose
+    Write-Host "SQLPS Module imported" (Get-Date).DateTime
 
 test_script:
 - ps: |
