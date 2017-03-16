@@ -20,7 +20,7 @@ install:
 build: false
 
 before_test:
-- cmd: net user rsuser1 "%SqlSaPwd%" /add
+- cmd: NET USER rsuser1 "%SqlSaPwd%" /ADD /Y
 - ps: |
     $ErrorActionPreference = 'Stop';
     [Environment]::SetEnvironmentVariable("RsUser", "$($env:ComputerName)\rsuser1")
