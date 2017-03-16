@@ -16,11 +16,11 @@ install:
 - ps: Install-PackageProvider -Name NuGet -Force
 - ps: Install-Module -Name PSScriptAnalyzer -Force
 - ps: Install-Module -Name Pester
-- cmd: net user rsuser1 %SqlSaPwd% /add
 
 build: false
 
 before_test:
+- cmd: net user rsuser1 %SqlSaPwd% /add
 - ps: |
     $ErrorActionPreference = 'Stop';
     [Environment]::SetEnvironmentVariable("RsUser", "$($env:ComputerName)\rsuser1")
