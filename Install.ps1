@@ -3,14 +3,16 @@ param (
 	[string]$Path
 )
 
+Write-Output "Calculating localpath.."
 $localpath = $(Join-Path -Path (Split-Path -Path $profile) -ChildPath '\Modules\ReportingServicesTools')
+Write-Output "Localpath is $localpath"
 
 try
 {
-	if ($Path.length -eq 0)
+	if (!($Path) -or ($Path.length -eq 0))
 	{
 		
-		if ($PSCommandPath.Length -gt 0)
+		if (($PSCommandPath) -and ($PSCommandPath.Length -gt 0))
 		{
 			$path = Split-Path $PSCommandPath
 			if ($path -match "github")
@@ -25,11 +27,6 @@ try
 	}
 }
 catch
-{
-	$path = $localpath
-}
-
-if ($path.length -eq 0)
 {
 	$path = $localpath
 }
@@ -68,35 +65,35 @@ else
 }
 
 Write-Output "Downloading archive from github"
-	try
-	{
-		Invoke-WebRequest $url -OutFile $zipfile
-	}
-	catch
-	{
-		#try with default proxy and usersettings
-		Write-Output "Probably using a proxy for internet access, trying default proxy settings"
-		(New-Object System.Net.WebClient).Proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
-		Invoke-WebRequest $url -OutFile $zipfile
-	}
-	
-	# Unblock if there's a block
-	Unblock-File $zipfile -ErrorAction SilentlyContinue
-	
-	Write-Output "Unzipping"
-	
-	# Keep it backwards compatible
-	$shell = New-Object -COM Shell.Application
-	$zipPackage = $shell.NameSpace($zipfile)
-	$destinationFolder = $shell.NameSpace($temp)
-	$destinationFolder.CopyHere($zipPackage.Items())
-	
-	Write-Output "Cleaning up"
-	Move-Item -Path "$temp\ReportingServicesTools-master\*" $path
-	Remove-Item -Path "$temp\ReportingServicesTools-master"
-	Remove-Item -Path $zipfile
-	
-	Write-Output "Done!"
-	if ((Get-Command -Module ReportingServicesTools).count -eq 0) { Import-Module "$path\src\ReportingServicesTools.psd1" -Force }
-	Get-Command -Module ReportingServicesTools
-	Write-Output "`n`nIf you experience any function missing errors after update, please restart PowerShell or reload your profile."
+try
+{
+	Invoke-WebRequest $url -OutFile $zipfile
+}
+catch
+{
+	#try with default proxy and usersettings
+	Write-Output "Probably using a proxy for internet access, trying default proxy settings"
+	(New-Object System.Net.WebClient).Proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
+	Invoke-WebRequest $url -OutFile $zipfile
+}
+
+# Unblock if there's a block
+Unblock-File $zipfile -ErrorAction SilentlyContinue
+
+Write-Output "Unzipping"
+
+# Keep it backwards compatible
+$shell = New-Object -COM Shell.Application
+$zipPackage = $shell.NameSpace($zipfile)
+$destinationFolder = $shell.NameSpace($temp)
+$destinationFolder.CopyHere($zipPackage.Items())
+
+Write-Output "Cleaning up"
+Move-Item -Path "$temp\ReportingServicesTools-master\*" $path
+Remove-Item -Path "$temp\ReportingServicesTools-master"
+Remove-Item -Path $zipfile
+
+Write-Output "Done!"
+if ((Get-Command -Module ReportingServicesTools).count -eq 0) { Import-Module "$path\src\ReportingServicesTools.psd1" -Force }
+Get-Command -Module ReportingServicesTools
+Write-Output "`n`nIf you experience any function missing errors after update, please restart PowerShell or reload your profile."
