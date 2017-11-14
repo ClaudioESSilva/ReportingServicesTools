@@ -7,3 +7,5 @@
 **What is the expected behavior?**
 
 **Which versions of Powershell and which OS are affected by this issue? Did this work in previous versions of our scripts?**
+
+**Which version of the ReportingServicesTools module are you using?**
